@@ -12,7 +12,7 @@ First follow the install steps to install [openapi-generator-cli.jar](https://gi
 
 ### Python, with asyncio support
 
-    java -jar openapi-generator-cli.jar generate --input-spec .\openapi.yaml --generator-name python --library asyncio --output python-asyncio
+    java -jar openapi-generator-cli.jar generate --input-spec .\openapi.yml --generator-name python --library asyncio --output python-asyncio
 
 ## Sources used
 
