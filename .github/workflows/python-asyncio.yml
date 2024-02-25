@@ -21,4 +21,5 @@ jobs:
           openapi-file: openapi.yml
           output-dir: python-asyncio-client
           generator: python
-          command-args: --library asyncio
+          config: config-python-asyncio.yml
+          command-args: --git-host github.com  --git-user-id KoenDierckx --git-repo-id pixoo-python-asyncio

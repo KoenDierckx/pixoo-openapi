@@ -4,6 +4,7 @@ openapi: 3.0.2
 info:
   title: Pixoo OpenAPI
   version: 1.0.0
+  description: Divoom Pixoo API
 
 servers:
 - url: http://localhost/

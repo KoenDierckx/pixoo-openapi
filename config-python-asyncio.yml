@@ -1,0 +1,5 @@
+library: asyncio
+projectName: Pixoo Client
+packageName: pixoo_client
+packageUrl: https://github.com/KoenDierckx/pixoo-python-asyncio
+packageVersion: 1.0.0
