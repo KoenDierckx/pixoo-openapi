@@ -1,0 +1,51 @@
+---
+openapi: 3.0.2
+
+info:
+  title: Pixoo OpenAPI
+  version: 1.0.0
+
+servers:
+- url: http://localhost/
+  description: Divoom Pixoo64 device
+
+tags:
+- name: Divoom
+- name: Pixoo
+
+paths:
+
+  /post:
+    post:
+      tags:
+        - pixoo
+      externalDocs:
+        url: http://docin.divoom-gz.com/web/#/5/30
+      operationId: pixoo_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: "#/components/schemas/pixoo_command"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/pixoo_response"
+
+components:
+  schemas:
+    pixoo_command:
+      type: object
+      properties:
+        Command: 
+          type: string
+        
+    pixoo_response:
+      type: object
+      properties:
+        error_code:
+          type: integer
