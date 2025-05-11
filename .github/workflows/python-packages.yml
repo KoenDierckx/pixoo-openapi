@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         client: [requests, asyncio]
-        python-version: [3.8, 3.9, '3.10', '3.11']
+        python-version: ['3.13']
 
     steps:
       - name: Checkout repository
@@ -31,7 +31,7 @@ jobs:
           openapi-file: openapi.yml
           output-dir: python-${{ matrix.client }}-client
           generator: python
-          config: config-python-${{ matrix.client }}.yml
+          config-file: config-python-${{ matrix.client }}.yml
           command-args: --git-host github.com --git-user-id KoenDierckx --git-repo-id pixoo-openapi
 
       - name: Install dependencies
