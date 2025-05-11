@@ -15,6 +15,7 @@ jobs:
       matrix:
         client: [urllib3, asyncio]
         python-version: ['3.13']
+      fail-fast: false
 
     steps:
       - name: Checkout repository
@@ -38,7 +39,11 @@ jobs:
         run: |
           cd python-${{ matrix.client }}-client
           python -m pip install --upgrade pip
-          pip install build pytest pytest-asyncio
+          pip install build pytest
+          if [ "${{ matrix.client }}" = "asyncio" ]; then
+            pip install pytest-asyncio
+          fi
+          pip install -e .
 
       - name: Build package
         run: |
@@ -48,7 +53,7 @@ jobs:
       - name: Run tests
         run: |
           cd python-${{ matrix.client }}-client
-          pytest
+          pytest -v
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4.3.3
