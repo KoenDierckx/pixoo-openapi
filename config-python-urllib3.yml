@@ -1,11 +1,8 @@
-library: requests
-
-packageName: pixoo-client-requests
+library: urllib3
+packageName: pixoo-client-urllib3
 packageVersion: 0.1.0
 packageUrl: https://github.com/KoenDierckx/pixoo-openapi
-
 infoEmail: koen.dierckx@gmail.com
 infoUrl: https://github.com/KoenDierckx/pixoo-openapi
-
 licenseInfo: MIT
 licenseUrl: https://opensource.org/licenses/MIT 

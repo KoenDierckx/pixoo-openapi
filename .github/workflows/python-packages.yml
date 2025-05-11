@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        client: [requests, asyncio]
+        client: [urllib3, asyncio]
         python-version: ['3.13']
 
     steps:
@@ -32,7 +32,7 @@ jobs:
           output-dir: python-${{ matrix.client }}-client
           generator: python
           config-file: config-python-${{ matrix.client }}.yml
-          command-args: --git-host github.com --git-user-id KoenDierckx --git-repo-id pixoo-openapi
+          command-args: --git-host github.com --git-user-id KoenDierckx --git-repo-id pixoo-openapi --library ${{ matrix.client }}
 
       - name: Install dependencies
         run: |
@@ -71,7 +71,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            artifacts/python-requests-client/*
+            artifacts/python-urllib3-client/*
             artifacts/python-asyncio-client/*
           generate_release_notes: true
         env:
@@ -83,7 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        client: [requests, asyncio]
+        client: [urllib3, asyncio]
 
     steps:
       - name: Download artifacts
