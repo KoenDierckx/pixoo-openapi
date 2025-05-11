@@ -17,11 +17,16 @@ First follow the install steps to install [openapi-generator-cli.jar](https://gi
 ## Sources used
 
 ### Divoom
-LATEST (17-02-2024):
+* https://divoom.com/apps/help-center#hc-pixoo64developeropen-sourcesdkapiopen-source
 
+That gives us:
+* http://doc.divoom-gz.com/web/#/12?page_id=89
+Where the contact page:
+* http://doc.divoom-gz.com/web/#/12?page_id=143
+Send us to
 * http://docin.divoom-gz.com/web/#/5/23
 
-OLDER
+OLDER REFERENCES
 * http://doc.divoom-gz.com/web/#/12
 * http://doc.divoom-gz.com/web/#/7
 * http://doc.divoom-gz.com/web/#/5
