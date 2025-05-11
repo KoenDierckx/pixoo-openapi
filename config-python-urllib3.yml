@@ -1,5 +1,5 @@
 library: urllib3
-packageName: pixoo-client-urllib3
+packageName: pixoo_client_urllib3
 packageVersion: 0.1.0
 packageUrl: https://github.com/KoenDierckx/pixoo-openapi
 infoEmail: koen.dierckx@gmail.com

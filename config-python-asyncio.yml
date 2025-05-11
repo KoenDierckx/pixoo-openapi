@@ -1,6 +1,6 @@
 library: asyncio
 
-packageName: pixoo-client-asyncio
+packageName: pixoo_client_asyncio
 packageVersion: 0.1.0
 packageUrl: https://github.com/KoenDierckx/pixoo-openapi
 
