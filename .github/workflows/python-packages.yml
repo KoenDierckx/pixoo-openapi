@@ -1,0 +1,110 @@
+name: Python Packages CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [created]
+
+jobs:
+  generate-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        client: [requests, asyncio]
+        python-version: [3.8, 3.9, '3.10', '3.11']
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Generate ${{ matrix.client }} client
+        uses: hatamiarash7/openapi-generator@v0.3.0
+        with:
+          openapi-file: openapi.yml
+          output-dir: python-${{ matrix.client }}-client
+          generator: python
+          config: config-python-${{ matrix.client }}.yml
+          command-args: --git-host github.com --git-user-id KoenDierckx --git-repo-id pixoo-openapi
+
+      - name: Install dependencies
+        run: |
+          cd python-${{ matrix.client }}-client
+          python -m pip install --upgrade pip
+          pip install build pytest pytest-asyncio
+
+      - name: Build package
+        run: |
+          cd python-${{ matrix.client }}-client
+          python -m build
+
+      - name: Run tests
+        run: |
+          cd python-${{ matrix.client }}-client
+          pytest
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-${{ matrix.client }}-client
+          path: python-${{ matrix.client }}-client/dist/*
+
+  create-release:
+    needs: generate-and-test
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            artifacts/python-requests-client/*
+            artifacts/python-asyncio-client/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: create-release
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        client: [requests, asyncio]
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: python-${{ matrix.client }}-client
+          path: dist
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+
+      - name: Publish to PyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          twine upload dist/* 
