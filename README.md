@@ -21,8 +21,10 @@ First follow the install steps to install [openapi-generator-cli.jar](https://gi
 
 That gives us:
 * http://doc.divoom-gz.com/web/#/12?page_id=89
+
 Where the contact page:
 * http://doc.divoom-gz.com/web/#/12?page_id=143
+
 Send us to
 * http://docin.divoom-gz.com/web/#/5/23
 
